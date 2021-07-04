@@ -1,0 +1,22 @@
+---
+- hosts: 172.31.41.130
+  become: True
+  tasks:
+    - name: Install apache
+      yum:
+        name: httpd
+        state: present
+    - name: git Install
+      yum:
+        name: git    
+    - name: Install static website from git
+      git:
+        repo: https://github.com/javahometech/javahome-app
+        dest: /var/www/html
+    - name: Start and enable apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+...        
+        
